@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>E-commerce Catalog Demo</title>
+
+<style>
+
+body{
+font-family: Arial;
+background:#f4f4f4;
+padding:40px;
+}
+
+.container{
+width:400px;
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0 0 10px gray;
+}
+
+.variant{
+margin-left:20px;
+}
+
+.review{
+color:green;
+}
+
+button{
+background:#007BFF;
+color:white;
+border:none;
+padding:10px;
+border-radius:5px;
+cursor:pointer;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>E-commerce Product Catalog</h1>
+
+<div class="container">
+
+<h2 id="productName"></h2>
+
+<p><b>Category:</b> <span id="category"></span></p>
+
+<h3>Variants</h3>
+
+<div id="variants"></div>
+
+<h3>Reviews</h3>
+
+<div id="reviews"></div>
+
+<br>
+
+<button onclick="buyProduct()">Buy Product</button>
+
+</div>
+
+<script>
+
+// Product data (same as your MongoDB document)
+
+const product = {
+name: "Premium Headphones",
+category: "Electronics",
+
+variants:[
+{
+sku:"HP-BL-001",
+color:"Black",
+price:199.99,
+stock:15
+},
+{
+sku:"HP-WH-001",
+color:"White",
+price:209.99,
+stock:8
+}
+],
+
+reviews:[
+{
+rating:5,
+comment:"Excellent sound quality"
+}
+]
+
+};
+
+
+// Display product name
+document.getElementById("productName").innerText = product.name;
+
+// Display category
+document.getElementById("category").innerText = product.category;
+
+
+// Show variants
+let variantHTML = "";
+
+product.variants.forEach(v => {
+
+variantHTML += `
+<p>
+Color: ${v.color} |
+Price: $${v.price} |
+Stock: ${v.stock}
+</p>
+`;
+
+});
+
+document.getElementById("variants").innerHTML = variantHTML;
+
+
+// Show reviews
+let reviewHTML = "";
+
+product.reviews.forEach(r => {
+
+reviewHTML += `
+<p class="review">
+⭐ ${r.rating} - ${r.comment}
+</p>
+`;
+
+});
+
+document.getElementById("reviews").innerHTML = reviewHTML;
+
+
+// Simulate stock update
+function buyProduct(){
+
+product.variants[0].stock--;
+
+alert("Product purchased! Remaining stock: " + product.variants[0].stock);
+
+location.reload();
+
+}
+
+</script>
+
+</body>
+</html>
